@@ -26,3 +26,6 @@ bin/
 # Logs and local files
 *.log
 *.local.*
+
+# Build output (renamed so iCloud does not sync it)
+target.nosync/
