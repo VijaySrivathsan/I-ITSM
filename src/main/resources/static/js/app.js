@@ -133,6 +133,32 @@
         });
     }
 
+    // Show / hide password: a button with data-password-toggle="<input id>" switches the field between
+    // hidden and visible text, keeps the cursor where it was, and updates its icon and label.
+    function passwordToggles() {
+        document.querySelectorAll('[data-password-toggle]').forEach(function (btn) {
+            var input = document.getElementById(btn.getAttribute('data-password-toggle'));
+            if (!input) return;
+            btn.addEventListener('click', function () {
+                var show = input.type === 'password';
+                var start = input.selectionStart, end = input.selectionEnd;
+                input.type = show ? 'text' : 'password';
+                var label = show ? 'Hide password' : 'Show password';
+                btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+                btn.setAttribute('aria-label', label);
+                btn.setAttribute('title', label);
+                var icon = btn.querySelector('.bi');
+                if (icon) icon.className = 'bi ' + (show ? 'bi-eye-slash' : 'bi-eye');
+                input.focus();
+                try { input.setSelectionRange(start, end); } catch (e) { /* not supported for this type */ }
+            });
+            // Never submit the password as visible text: hide it again when the form is sent.
+            if (input.form) {
+                input.form.addEventListener('submit', function () { input.type = 'password'; });
+            }
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         apply(wanted());
         staggerCards();
@@ -148,6 +174,7 @@
             if (!savedTheme()) apply(wanted());
         });
         highlightActiveNav();
+        passwordToggles();
         autoDismissSuccess();
         searchShortcut();
     });

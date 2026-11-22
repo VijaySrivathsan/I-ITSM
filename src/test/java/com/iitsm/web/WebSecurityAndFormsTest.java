@@ -240,5 +240,6 @@ class WebSecurityAndFormsTest {
                 .andExpect(content().string(org.hamcrest.Matchers.containsString("id=\"themeToggle\"")))
                 .andReturn().getResponse().getContentAsString();
         assertThat(html).doesNotContain("cdn.jsdelivr.net");
+        assertThat(html).contains("data-password-toggle=\"password\"");
     }
 }

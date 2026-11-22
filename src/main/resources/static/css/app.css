@@ -238,6 +238,25 @@ html.theme-switching *::after {
     border-color: var(--brand-accent);
     box-shadow: 0 0 0 .25rem rgba(99, 102, 241, .18);
 }
+/* Password field with a show / hide button inside the same rounded box */
+.password-group .form-control { border-right: 0; }
+.password-group .password-toggle {
+    border: 1px solid var(--line);
+    border-left: 0;
+    background: var(--surface-solid);
+    color: var(--ink-muted);
+    border-radius: 0 .6rem .6rem 0;
+    padding-inline: .9rem;
+    transform: none !important;
+    box-shadow: none;
+}
+.password-group .password-toggle:hover,
+.password-group .password-toggle[aria-pressed="true"] { color: var(--brand-accent); }
+.password-group:focus-within .form-control,
+.password-group:focus-within .password-toggle { border-color: var(--brand-accent); }
+.password-group:focus-within { box-shadow: 0 0 0 .25rem rgba(99, 102, 241, .18); border-radius: .6rem; }
+.password-group .form-control:focus { box-shadow: none; background-color: var(--surface-solid); }
+
 .form-check-input:checked { background-color: var(--brand); border-color: var(--brand); }
 
 /* ---------------------------------------------------------------- surfaces */
