@@ -13,7 +13,10 @@
 \IfFontExistsTF{Consolas}{\setmonofont{Consolas}[Scale=0.88]}{\setmonofont{DejaVu Sans Mono}[Scale=0.82]}
 
 % ------------------------------------------------------------------ layout
-\usepackage[a4paper,top=2.3cm,bottom=2.3cm,left=2.3cm,right=2.3cm,headheight=14pt]{geometry}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm,headheight=14pt,headsep=0.55cm,footskip=0.95cm]{geometry}
+% Page border: a thin frame 1.1 cm inside the paper edge on every page (header and page number sit inside it)
+\usepackage{eso-pic}
+\newlength{\borderinset}\setlength{\borderinset}{1.1cm}
 \usepackage{xcolor}
 \definecolor{brand}{HTML}{3730A3}
 \definecolor{brand2}{HTML}{6D28D9}
@@ -21,6 +24,11 @@
 \definecolor{muted}{HTML}{5B6472}
 \definecolor{rowtint}{HTML}{F3F4FB}
 \color{ink}
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \put(\LenToUnit{\borderinset},\LenToUnit{\borderinset}){%
+      \color{brand}\setlength{\fboxrule}{0.7pt}\setlength{\fboxsep}{0pt}%
+      \framebox(\LenToUnit{\dimexpr\paperwidth-2\borderinset\relax},\LenToUnit{\dimexpr\paperheight-2\borderinset\relax}){}}}}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{array,tabularx,longtable,booktabs}
@@ -369,7 +377,7 @@ Build and tools & Maven, Git and GitHub, IntelliJ IDEA / VS Code \\
 \section{Intelligent Features}\label{sec:intelligent}
 The brief asks for at least two intelligent or automated features. I-ITSM implements all seven suggested (A--G) and three innovation extensions.
 
-\begin{longtable}{@{}L{0.5cm}L{3.1cm}L{8.2cm}L{3.3cm}@{}}
+\begin{longtable}{@{}L{0.5cm}L{3.1cm}L{8.0cm}L{3.3cm}@{}}
 \toprule
 & \textbf{Feature} & \textbf{How it works} & \textbf{Class} \\
 \midrule\endhead
@@ -499,7 +507,7 @@ Invalid user input & \code{InvalidInputException} and form validation errors \\
 \section{Testing}
 The project has \textbf{249 automated tests in 27 test classes}, all passing with \code{mvn test}, and \textbf{108 documented test cases} (Appendix~\ref{app:tests}). Techniques: plain unit tests for the domain and strategies; \code{@DataJpaTest} with a real H2 database for repositories and services; a \code{MutableClock} to move time forward; \code{@SpringBootTest} with MockMvc and Spring Security Test for the web layer; recorded application events to verify the Observer flow. A selection:
 
-\begin{longtable}{@{}L{1.1cm}L{2.2cm}L{5.8cm}L{6cm}@{}}
+\begin{longtable}{@{}L{1.1cm}L{2.2cm}L{5.8cm}L{5.8cm}@{}}
 \toprule
 \textbf{ID} & \textbf{Type} & \textbf{Scenario} & \textbf{Expected result} \\
 \midrule\endhead
